@@ -37,8 +37,29 @@ class InterfaceSorteador:
         estilo.configure('Resultado.TLabel', background='white', foreground='#2563eb', font=('', 42, 'bold'))
         estilo.configure('Campo.TEntry', padding=8, fieldbackground='#f8fafc')
         estilo.configure('Placeholder.TLabel', background='#f8fafc', foreground='#64748b', font=('', 11))
-        estilo.configure('Sortear.TButton', padding=12, background='#2563eb', foreground='white', font=('', 12, 'bold'))
-        estilo.map('Sortear.TButton', background=[('active', '#1d4ed8')])
+        estilo.configure(
+            'Sortear.TButton', padding=(14, 7), background='#2563eb',
+            foreground='white', font=('', 10, 'bold'), borderwidth=0,
+            relief='flat', width=0,
+        )
+        estilo.map(
+            'Sortear.TButton',
+            background=[('pressed', '#1e40af'), ('active', '#1d4ed8')],
+            lightcolor=[('!disabled', '#2563eb')],
+            darkcolor=[('!disabled', '#2563eb')],
+        )
+        estilo.configure(
+            'Limpar.TButton', padding=(12, 7), background='#f1f5f9',
+            foreground='#475569', font=('', 10), borderwidth=1,
+            bordercolor='#000000', relief='solid', width=0,
+        )
+        estilo.map(
+            'Limpar.TButton',
+            background=[('pressed', '#cbd5e1'), ('active', '#e2e8f0')],
+            bordercolor=[('!disabled', '#000000')],
+            lightcolor=[('!disabled', '#000000')],
+            darkcolor=[('!disabled', '#000000')],
+        )
 
     def criar_componentes(self):
         cartao = ttk.Frame(self.janela, padding=28, style='Cartao.TFrame')
@@ -51,8 +72,13 @@ class InterfaceSorteador:
         self.criar_campo(cartao, 'Limite mínimo', self.minimo, coluna=0)
         self.criar_campo(cartao, 'Limite máximo', self.maximo, coluna=1)
 
-        ttk.Button(cartao, text='Sortear número', command=self.sortear, style='Sortear.TButton').grid(
-            row=3, column=0, columnspan=2, sticky='ew', pady=20
+        acoes = ttk.Frame(cartao, style='Cartao.TFrame')
+        acoes.grid(row=3, column=0, columnspan=2, pady=(18, 16))
+        ttk.Button(acoes, text='Sortear número', command=self.sortear, style='Sortear.TButton', cursor='hand2').grid(
+            row=0, column=0, padx=(0, 8)
+        )
+        ttk.Button(acoes, text='Limpar', command=self.limpar, style='Limpar.TButton', cursor='hand2').grid(
+            row=0, column=1
         )
         ttk.Label(cartao, textvariable=self.resultado, style='Resultado.TLabel', wraplength=440).grid(
             row=4, column=0, columnspan=2
@@ -81,6 +107,12 @@ class InterfaceSorteador:
         campo.bind('<FocusOut>', atualizar_dica)
         variavel.trace_add('write', atualizar_dica)
         atualizar_dica()
+
+    def limpar(self):
+        self.minimo.set('')
+        self.maximo.set('')
+        self.resultado.set('—')
+        self.mensagem.set('Escolha os limites e clique em Sortear.')
 
     def sortear(self, event=None):
         try:

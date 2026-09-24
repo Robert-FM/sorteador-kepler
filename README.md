@@ -1,6 +1,6 @@
 # 🎲 Sorteador Kepler
 
-Aplicação desktop em Python para sortear um número inteiro entre dois limites definidos pelo usuário. A interface utiliza Tkinter e ttk, com campos de entrada, botão de sorteio e resultado em destaque.
+Aplicação desktop em Python para sortear um número inteiro entre dois limites definidos pelo usuário. A interface utiliza Tkinter e ttk, com campos de entrada, botões para sortear e limpar e resultado em destaque.
 
 ## ✨ Funcionalidades
 
@@ -9,6 +9,9 @@ Aplicação desktop em Python para sortear um número inteiro entre dois limites
 - Validação de entradas vazias, textos e valores que não representam números inteiros.
 - Mensagem de erro quando o mínimo é maior que o máximo.
 - Novo sorteio pelo botão **Sortear número** ou pela tecla **Enter**.
+- Botão **Limpar**, ao lado de **Sortear número**, para apagar os dois limites e restaurar o resultado e a mensagem inicial.
+- Botões compactos e centralizados abaixo dos campos: **Sortear número** em azul e **Limpar** com fundo cinza claro e borda preta para facilitar a identificação.
+- Os botões mudam de cor ao passar o mouse e clicar; a borda preta de **Limpar** permanece visível.
 - Janela de 600 × 480 pixels, centralizada na tela, com painel centralizado.
 
 O sorteio utiliza `random.randint`. Cada execução é independente e pode repetir números anteriores. Valores negativos são aceitos; limites iguais sempre produzem aquele valor. Não há histórico nem armazenamento dos resultados.
@@ -102,6 +105,7 @@ O comando `sorteador` declarado no `pyproject.toml` aponta para `sorteador:main`
 2. Clique em **Sortear número** ou pressione **Enter**.
 3. Leia o número exibido no painel.
 4. Clique novamente para outro sorteio ou altere os limites antes de continuar.
+5. Para começar de novo, clique em **Limpar**. Os dois campos ficam vazios, o resultado volta a **—** e a mensagem passa a ser **Escolha os limites e clique em Sortear.**
 
 O placeholder **Digite um inteiro** é apenas uma dica visual, não um valor preenchido. Ele desaparece quando o campo recebe foco e reaparece ao sair do campo se ele continuar vazio. É necessário informar os dois limites para sortear.
 
@@ -116,6 +120,8 @@ O projeto não possui uma suíte de testes automatizados. Os cenários abaixo de
 | Entrada ou ação | Comportamento esperado |
 | --- | --- |
 | Abrir a aplicação | Campos sem valores numéricos preenchidos |
+| Observar os botões abaixo dos campos | Botões compactos e centralizados, com **Sortear número** azul e **Limpar** cinza claro com borda preta |
+| Passar o mouse e clicar em **Limpar** | O fundo muda de cor e a borda preta permanece visível |
 | Selecionar um campo vazio | Oculta a dica visual desse campo |
 | Sair de um campo vazio | Mostra novamente a dica **Digite um inteiro** |
 | Mínimo `1`, máximo `5` | Exibe um inteiro de 1 a 5 |
@@ -123,6 +129,8 @@ O projeto não possui uma suíte de testes automatizados. Os cenários abaixo de
 | Mínimo `5`, máximo `1` | Informa que o mínimo não pode superar o máximo |
 | Campo vazio, `abc` ou `2.5` | Solicita números inteiros |
 | Pressionar Enter com limites válidos | Realiza um sorteio |
+| Clicar em **Limpar** após digitar limites ou sortear | Apaga os dois campos, substitui o resultado por **—** e restaura a mensagem inicial |
+| Clicar em **Limpar** após uma entrada inválida | Apaga os dois campos e restaura a mensagem inicial |
 
 ## 👨‍💻 Autor
 
